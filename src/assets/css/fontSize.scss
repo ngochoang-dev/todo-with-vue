@@ -1,0 +1,7 @@
+@use "variables" as *;
+
+@each $size in $sizeText {
+  .size {
+    font-size: #{$size};
+  }
+}

@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import "./assets/css/index.scss";
+import "./assets/css/color.scss";
+import "./assets/css/fontSize.scss";
 import App from "./App.vue";
 import router from "./router/index";
 import { useAuthStore } from "./store/auth";

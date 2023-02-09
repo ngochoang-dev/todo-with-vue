@@ -13,12 +13,12 @@ console.log(useStore.$state.authenticated);
 
 router.beforeEach(async (to, from) => {
   const authenticated = useStore.$state.authenticated;
-
-  if (!authenticated && to.name !== "Login") {
+  console.log(to.meta.requireAuth);
+  if (!authenticated && to.meta.requireAuth && to.name !== "Login") {
     return { name: "Login" };
   }
 
   if (authenticated && to.name === "Login") {
-    return { name: "Home" };
+    router.push(from.path);
   }
 });

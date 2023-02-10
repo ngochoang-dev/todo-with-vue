@@ -1,13 +1,30 @@
 <template>
-  <div class="login-container">
+  <div class="login-container margin-distance">
     {{ form }}
     <div class="logo">
       <Logo />
     </div>
     <div class="login-form">
-      <form>
-        <Input :type="'text'" :name="'username'" @value="onChange" />
-        <Input :type="'password'" :name="'password'" @value="onChange" />
+      <form @submit.prevent="submitForm">
+        <Input
+          :type="'text'"
+          :name="'username'"
+          :placeholder="'Email'"
+          @value="onChange"
+        />
+        <Input
+          :type="'password'"
+          :name="'password'"
+          :placeholder="'Password'"
+          @value="onChange"
+        />
+
+        <div class="forgot-pw">
+          <router-link to="/" :class="'forgot-pw-link s-12'"
+            >Forgot Password?</router-link
+          >
+        </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   </div>
@@ -26,6 +43,10 @@
   const onChange = (event) => {
     form.value = { ...form.value, ...event };
   };
+
+  const submitForm = () => {
+    console.log(form.value);
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -34,6 +55,17 @@
     .logo {
       width: 100%;
       text-align: center;
+    }
+  }
+
+  .login-form {
+    .forgot-pw {
+      .forgot-pw-link {
+        font-family: "Montserrat", sans-serif;
+        color: rgba(39, 39, 39, 0.5);
+        text-decoration: none;
+        line-height: 15px;
+      }
     }
   }
 </style>

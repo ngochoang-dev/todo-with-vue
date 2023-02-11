@@ -1,7 +1,9 @@
-@use "variables" as *;
+$i: 1;
 
-@each $size in $sizeText {
-  .s-#{$size} {
-    font-size: #{$size}px;
+@while $i <=100 {
+  .s-#{$i} {
+    font-size: #{$i}px;
   }
+
+  $i: $i + 1;
 }

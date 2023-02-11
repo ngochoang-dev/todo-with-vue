@@ -1,37 +1,45 @@
 <template>
-  <div class="input-wrapper">
+  <div v-if="errorMessage" class="mb-10">
+    <span class="s-14 pink">※{{ errorMessage }}</span>
+  </div>
+  <div :class="`input-wrapper mb-16 ${errorMessage ? 'error' : ''}`">
     <input
       class="input-form"
-      :type="props.type"
-      :name="props.name"
-      :placeholder="props.placeholder"
-      v-model="value"
+      :name="name"
+      :type="type"
+      :value="inputValue"
+      :placeholder="placeholder"
+      @input="handleChange"
     />
-    <div class="eye-off" v-if="props.type === 'password'">
+    <div class="eye-off" v-if="type === 'password'">
       <EyeOff />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref, defineProps, watch, defineEmits } from "vue";
+  import { useField } from "vee-validate";
   import EyeOff from "../components/Icons/EyeOff.vue";
 
   type Props = {
     type: string;
     name: string;
+    value?: string;
     placeholder: string;
   };
 
   const props = withDefaults(defineProps<Props>(), {
     type: "text",
+    value: "",
   });
 
-  const value = ref("");
-  const emit = defineEmits(["value"]);
-
-  watch(value, (newValue) => {
-    emit("value", { [props.name]: newValue });
+  const {
+    value: inputValue,
+    errorMessage,
+    handleChange,
+    meta,
+  } = useField(props.name, undefined, {
+    initialValue: props.value,
   });
 </script>
 
@@ -43,9 +51,12 @@
     display: flex;
     align-items: center;
     border: 1px solid rgba(39, 39, 39, 0.5);
-    margin-bottom: 16px;
     border-radius: 12px;
     overflow: hidden;
+
+    &.error {
+      border: 1px solid red;
+    }
 
     .input-form {
       width: 100%;
@@ -56,6 +67,7 @@
       font-weight: 400;
       padding: 10px 16px;
       color: rgba(39, 39, 39, 0.5);
+      background-color: transparent;
     }
 
     .eye-off {

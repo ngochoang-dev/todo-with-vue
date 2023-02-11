@@ -1,29 +1,27 @@
 <template>
-  <div class="login-container margin-distance mt-100 pt-80 mb-46">
+  <div class="register-container margin-distance mt-100 pt-80 mb-46">
     <div class="logo">
       <Logo />
     </div>
-    <div class="login-form mt-100 pt-70">
+    <div class="register-form mt-100 pt-70">
       <Form @submit="submitForm" :validation-schema="formValid">
         <Input type="text" name="username" placeholder="User Name" />
         <Input type="password" name="password" placeholder="Password" />
+        <Input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+        />
 
-        <div class="forgot-pw">
-          <router-link
-            to="/change-password"
-            :class="'forgot-pw-link s-12 click'"
-            >Forgot Password?</router-link
-          >
-        </div>
-        <Button class="bg-orange white mt-16" :type="'submit'">
-          <span class="s-14"> SIGN UP </span>
+        <Button class="bg-orange white mt-24" type="'submit'">
+          <span class="s-14"> SIGN IN </span>
         </Button>
       </Form>
     </div>
     <div class="mt-15 valiable-acc-wrapper">
       <p class="s-12 valiable-acc">
-        Don't have an account?
-        <router-link to="/register" class="orange click">Sign up</router-link>
+        Have an account?
+        <router-link to="/login" class="orange click">Log in</router-link>
       </p>
     </div>
   </div>
@@ -32,40 +30,30 @@
 <script setup>
   import { Form } from "vee-validate";
   import * as Yup from "yup";
+
   import Input from "../components/Input.vue";
   import Logo from "../components/Icons/Logo.vue";
   import Button from "../components/Button.vue";
-  import { loginApi } from "../http/auth";
+  import { registerApi } from "../http/auth";
 
   const formValid = Yup.object().shape({
     username: Yup.string().required("User name is a required field"),
     password: Yup.string().required("Password is a required field"),
+    confirmPassword: Yup.string()
+      .required("Confirm password is a required field")
+      .oneOf([Yup.ref("password")], "Password do not match"),
   });
 
   const submitForm = (values) => {
-    loginApi(values);
+    registerApi(values);
   };
 </script>
 
 <style lang="scss" scoped>
-  .login-container {
+  .register-container {
     .logo {
       width: 100%;
       text-align: center;
-    }
-  }
-
-  .login-form {
-    .forgot-pw {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-
-      .forgot-pw-link {
-        color: rgba(39, 39, 39, 0.5);
-        text-decoration: none;
-        line-height: 15px;
-      }
     }
   }
 

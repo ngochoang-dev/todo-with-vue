@@ -3,12 +3,13 @@
 
 * {
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
+html,
 body {
   font-size: 16px;
   font-weight: 400;
-  font-family: "Montserrat", sans-serif !important;
 }
 
 .font-2 {
@@ -22,4 +23,110 @@ body {
 
 .margin-distance {
   padding: 0 24px;
+}
+
+.click {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.Toastify__toast-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  z-index: 99999;
+}
+
+.Toastify__toast {
+  width: calc(100% - 30px);
+
+  &:first-child {
+    margin-top: 15px;
+  }
+  margin-top: 10px;
+  height: 132px;
+  border-radius: 4px;
+}
+.Toastify__toast-body {
+  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Toastify__toast-theme--colored.Toastify__toast--info {
+  background-color: #f2f2f2 !important;
+  color: #221818;
+  font-size: 16px;
+  border: 1px solid #221818;
+
+  .Toastify__close-button {
+    color: #221818;
+  }
+
+  .Toastify__close-button > svg {
+    fill: currentColor;
+    height: 20px;
+    width: 20px;
+  }
+
+  .Toastify__toast-icon {
+    display: none;
+  }
+}
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  background-color: #ffffff !important;
+  border-radius: 4px;
+  border: 1px solid #28b478;
+  color: #221818;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 700;
+  .Toastify__close-button {
+    position: absolute;
+    color: #221818;
+    top: 10px;
+    right: 8px;
+  }
+  .Toastify__close-button > svg {
+    fill: currentColor;
+    height: 20px;
+    width: 20px;
+  }
+  .Toastify__toast-icon {
+    display: none;
+  }
+}
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  background-color: #ffffff !important;
+  border-radius: 4px;
+  border: 1px solid #d20a0a;
+  color: #d20a0a;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 700;
+  position: relative;
+  .Toastify__close-button {
+    position: absolute;
+    color: #221818;
+    top: 14px;
+    right: 14px;
+  }
+  .Toastify__close-button > svg {
+    fill: currentColor;
+    height: 22px;
+    width: 22px;
+  }
+  .Toastify__toast-icon {
+    display: none;
+  }
+}
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+  background-color: #e6b400;
+  color: #fff;
+  font-size: 16px;
 }

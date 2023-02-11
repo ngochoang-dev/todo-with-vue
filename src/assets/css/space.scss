@@ -1,0 +1,28 @@
+$type: (
+  "t": "top",
+  "l": "left",
+  "r": "right",
+  "b": "bottom",
+);
+
+$i: 1;
+
+@while $i <= 100 {
+  @each $key, $value in $type {
+    .m#{$key}-#{$i} {
+      margin-#{$value}: #{$i}px;
+    }
+  }
+  $i: $i + 1;
+}
+
+$j: 1;
+
+@while $j <= 100 {
+  @each $key, $value in $type {
+    .p#{$key}-#{$j} {
+      padding-#{$value}: #{$j}px;
+    }
+  }
+  $j: $j + 1;
+}

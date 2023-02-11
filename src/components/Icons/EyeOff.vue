@@ -31,8 +31,6 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps } from "vue";
-
   type Props = {
     width?: number;
     height?: number;

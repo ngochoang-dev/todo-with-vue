@@ -1,24 +1,31 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import Vue3Toastify, { type ToastContainerOptions } from "vue3-toastify";
+
+import "./assets/css/reset.scss";
 import "./assets/css/index.scss";
 import "./assets/css/color.scss";
 import "./assets/css/fontSize.scss";
-import "./assets/css/reset.scss";
+import "./assets/css/space.scss";
+import "vue3-toastify/dist/index.css";
 import App from "./App.vue";
 import router from "./router/index";
-import { useAuthStore } from "./store/auth";
 
-createApp(App).use(router).use(createPinia()).mount("#app");
-
-const useStore = useAuthStore();
-
-router.beforeEach(async (to, from) => {
-  const authenticated = useStore.$state.authenticated;
-  if (!authenticated && to.meta.requireAuth && to.name !== "Login") {
-    return { name: "Login" };
-  }
-
-  if (authenticated && to.name === "Login") {
-    router.push(from.path);
-  }
-});
+createApp(App)
+  .use(router)
+  .use(createPinia())
+  .use(Vue3Toastify, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: true,
+    newestOnTop: true,
+    closeOnClick: false,
+    rtl: false,
+    pauseOnFocusLoss: true,
+    draggable: true,
+    pauseOnHover: true,
+    theme: "colored",
+    limit: 1,
+    closeButton: true,
+  } as ToastContainerOptions)
+  .mount("#app");

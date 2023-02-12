@@ -3,6 +3,7 @@ import { getInLocalStorage } from "../utils/localStorage";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
+    loading: false,
     authenticated: false,
   }),
   actions: {
@@ -11,6 +12,7 @@ export const useAuthStore = defineStore("auth", {
       this.authenticated = !!res;
     },
     loginSuccess() {
+      this.loading = false;
       this.authenticated = true;
     },
   },

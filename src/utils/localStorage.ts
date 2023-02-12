@@ -5,3 +5,7 @@ export const getInLocalStorage = async (key: string) => {
 export const setInLocalStorage = async (key: string, value: any) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
+
+export const removeLocalStorage = async (key: string) => {
+  localStorage.removeItem(key);
+};

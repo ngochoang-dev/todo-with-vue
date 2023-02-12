@@ -1,4 +1,4 @@
-export const handleFormatDate = (date: string) => {
+export const handleFormatDate = (date: string | Date) => {
   const monthString = [
     "March",
     "April",

@@ -1,8 +1,9 @@
 <template>
+  <Loading v-if="loading" />
   <div class="wrapper home-container pt-50 margin-distance">
     <header class="home-header">
       <h1 class="font-2 s-24 orange title-header">TO DO LIST</h1>
-      <Setting />
+      <Setting class="click" />
     </header>
     <article class="filter-wrapper mt-40">
       <div class="left-side">
@@ -13,12 +14,15 @@
         <Filter class="click" />
       </div>
     </article>
-    <PlusCircle class="click icon-plus" />
+    <router-link to="/create-todo" class="click icon-plus">
+      <PlusCircle />
+    </router-link>
     <div v-if="!!data.length" class="todo-item mt-30">
       <TodoItem
         v-for="(todo, index) in data"
-        :key="index"
         class="mb-16 click"
+        :key="index"
+        :id="todo._id"
         :title="todo.title"
         :content="todo.content"
         :is_finished="todo.is_finished"
@@ -36,15 +40,15 @@
   import Filter from "../components/Icons/Filter.vue";
   import PlusCircle from "../components/Icons/PlusCircle.vue";
   import TodoItem from "../components/TodoItem.vue";
+  import Loading from "../components/Loading.vue";
   import { getTodoApi } from "../http/todo";
   import { useTodoStore } from "../store/todo";
 
   const todoStore = useTodoStore();
-
   const { loading, data, totalCount } = storeToRefs(todoStore);
 
   onMounted(() => {
-    getTodoApi({ page: 1 });
+    getTodoApi();
   });
 </script>
 
@@ -76,6 +80,12 @@
       position: absolute;
       bottom: 24px;
       right: 24px;
+      width: fit-content;
+      height: fit-content;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 </style>

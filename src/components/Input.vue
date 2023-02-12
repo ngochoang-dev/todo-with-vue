@@ -1,8 +1,12 @@
 <template>
-  <div v-if="errorMessage" class="mb-10">
+  <div v-if="errorMessage && name !== 'title'" class="mb-10">
     <span class="s-14 pink">※{{ errorMessage }}</span>
   </div>
-  <div :class="`input-wrapper mb-16 ${errorMessage ? 'error' : ''}`">
+  <div
+    :class="`input-wrapper mb-16 ${errorMessage ? 'error' : ''} ${
+      className || ''
+    }`"
+  >
     <input
       class="input-form"
       :name="name"
@@ -26,6 +30,7 @@
     name: string;
     value?: string;
     placeholder: string;
+    className?: string;
   };
 
   const props = withDefaults(defineProps<Props>(), {
@@ -37,7 +42,6 @@
     value: inputValue,
     errorMessage,
     handleChange,
-    meta,
   } = useField(props.name, undefined, {
     initialValue: props.value,
   });
@@ -68,6 +72,37 @@
       padding: 10px 16px;
       color: rgba(39, 39, 39, 0.5);
       background-color: transparent;
+      &::placeholder {
+        color: rgba(39, 39, 39, 0.5);
+        opacity: 1;
+      }
+      &:-ms-input-placeholder {
+        color: rgba(39, 39, 39, 0.5);
+      }
+      &::-ms-input-placeholder {
+        color: rgba(39, 39, 39, 0.5);
+      }
+    }
+
+    &.input-type-2 {
+      border: 2px solid #ffffff;
+      .input-form {
+        color: #ffffff;
+        &::placeholder {
+          color: #ffffff;
+          opacity: 1;
+        }
+        &:-ms-input-placeholder {
+          color: #ffffff;
+        }
+        &::-ms-input-placeholder {
+          color: #ffffff;
+        }
+      }
+
+      &.error {
+        border: 2px solid red;
+      }
     }
 
     .eye-off {

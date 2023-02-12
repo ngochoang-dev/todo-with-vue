@@ -8,16 +8,21 @@ export const registerApi = async (data: {
   username: string;
   password: string;
 }) => {
+  const authStore = useAuthStore();
   try {
+    authStore.$state.loading = true;
     await axios.post("/user", data);
     renderToast({
       type: "success",
-      message: "Thành công!\n Hãy đăng nhập với tài khoản đã tạo",
+      path: ["register", "success"],
     });
+    authStore.$state.loading = false;
+    router.push("/login");
   } catch (error) {
+    authStore.$state.loading = false;
     renderToast({
       type: "error",
-      message: "Thất bại!\n Hãy thử lại với tên khác",
+      path: ["register", "error"],
     });
     console.log("error auth", error);
   }
@@ -27,8 +32,9 @@ export const loginApi = async (data: {
   username: string;
   password: string;
 }) => {
+  const authStore = useAuthStore();
   try {
-    const authStore = useAuthStore();
+    authStore.$state.loading = true;
     const res = await axios.post("/user/sign-in", data);
     setInLocalStorage("token", res.data);
     setInLocalStorage("authenticated", true);
@@ -36,16 +42,28 @@ export const loginApi = async (data: {
     authStore.loginSuccess();
     renderToast({
       type: "success",
-      message: "Thành công!\n Hãy đăng nhập với tài khoản đã tạo",
+      path: ["login", "success"],
     });
-
     router.push("/");
   } catch (error) {
+    authStore.$state.loading = false;
     renderToast({
       type: "error",
-      message: "Thất bại!\n Hãy thử lại với tên khác",
+      path: ["login", "error"],
     });
 
+    console.log("error auth", error);
+  }
+};
+
+export const refreshTokenApi = async (token: string) => {
+  try {
+    const res = await axios.post("/user/reissue", {
+      refreshToken: token,
+    });
+
+    return res.data;
+  } catch (error) {
     console.log("error auth", error);
   }
 };

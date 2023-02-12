@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+@import "@vuepic/vue-datepicker/src/VueDatePicker/style/main.scss";
 
 * {
   box-sizing: border-box;
@@ -129,4 +130,50 @@ body {
   background-color: #e6b400;
   color: #fff;
   font-size: 16px;
+}
+
+// Datepicker custom style
+
+.dp__menu {
+  border-radius: 20px;
+
+  .dp__action_buttons,
+  .dp__arrow_bottom,
+  .dp__action_row,
+  .dp__month_year_col_nav,
+  .dp__calendar_header_separator {
+    display: none;
+  }
+
+  .dp__instance_calendar {
+    width: 325px;
+    height: 330px;
+    padding: 29px 23px;
+
+    .dp__month_year_row {
+      margin-bottom: 6px;
+    }
+
+    .dp__month_year_wrap {
+      .dp__month_year_select {
+        width: fit-content;
+        font-weight: 700;
+        margin-right: 6px;
+      }
+    }
+
+    .dp__calendar_header {
+      margin-bottom: 10px;
+    }
+
+    .dp__calendar_header,
+    .dp__calendar {
+      width: 100%;
+      margin-left: -5px;
+
+      .dp__cell_inner {
+        height: 30px;
+      }
+    }
+  }
 }

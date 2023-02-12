@@ -1,4 +1,5 @@
 <template>
+  <Loading v-if="loading" />
   <div class="register-container margin-distance mt-100 pt-80 mb-46">
     <div class="logo">
       <Logo />
@@ -30,11 +31,16 @@
 <script setup>
   import { Form } from "vee-validate";
   import * as Yup from "yup";
-
+  import { storeToRefs } from "pinia";
   import Input from "../components/Input.vue";
   import Logo from "../components/Icons/Logo.vue";
   import Button from "../components/Button.vue";
+  import Loading from "../components/Loading.vue";
+  import { useAuthStore } from "../store/auth";
   import { registerApi } from "../http/auth";
+
+  const authStore = useAuthStore();
+  const { loading } = storeToRefs(authStore);
 
   const formValid = Yup.object().shape({
     username: Yup.string().required("User name is a required field"),

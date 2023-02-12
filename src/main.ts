@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import Datepicker from "@vuepic/vue-datepicker";
 import Vue3Toastify, { type ToastContainerOptions } from "vue3-toastify";
 
 import "./assets/css/reset.scss";
@@ -16,7 +17,7 @@ createApp(App)
   .use(createPinia())
   .use(Vue3Toastify, {
     position: "top-center",
-    autoClose: 5000,
+    autoClose: 3000,
     hideProgressBar: true,
     newestOnTop: true,
     closeOnClick: false,
@@ -28,4 +29,5 @@ createApp(App)
     limit: 1,
     closeButton: true,
   } as ToastContainerOptions)
+  .component("Datepicker", Datepicker)
   .mount("#app");

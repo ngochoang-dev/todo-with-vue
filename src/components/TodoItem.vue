@@ -1,5 +1,6 @@
 <template>
-  <div
+  <router-link
+    :to="`/detail/${id}`"
     :class="`item-wrapper pt-6 pb-6 pl-16 pr-10 ${
       is_finished ? 'bg-orange' : 'bg-pink'
     }`"
@@ -14,7 +15,7 @@
     <p class="white s-11 item-created">
       Created at {{ handleFormatDate(created_at) }}
     </p>
-  </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">
@@ -22,6 +23,7 @@
   import { handleFormatDate } from "../utils";
 
   defineProps<{
+    id: string;
     title: string;
     content: string;
     is_finished: boolean;
@@ -34,6 +36,7 @@
     height: 120px;
     border-radius: 12px;
     position: relative;
+    display: block;
 
     .item-header {
       display: flex;
